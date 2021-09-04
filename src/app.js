@@ -46,6 +46,12 @@ class App{
             <div id="title">
                 人生重开模拟器<br>
                 <div style="font-size:1.5rem; font-weight:normal;">这垃圾人生一秒也不想呆了</div>
+                
+                <div style="font-size:1rem; font-weight:normal;">
+                    <a href="https://github.com/tzcura/lifeRestart" target="目标" title="说明">修改版Github</a>
+                    <div>可抽50个天赋，可选5天赋</div>
+                    <div>四等级概率均分，属性2w不强制全部使用</div>
+                </div>
             </div>
             <button id="restart" class="mainbtn"><span class="iconfont">&#xe6a7;</span>立即重开</button>
         </div>
@@ -78,9 +84,9 @@ class App{
         const talentPage = $(`
         <div id="main">
             <div class="head" style="font-size: 1.6rem">天赋抽卡</div>
-            <button id="random" class="mainbtn" style="top: 80%;">10连抽！</button>
+            <button id="random" class="mainbtn" style="top: 85%;">50连抽！</button>
             <ul id="talents" class="selectlist"></ul>
-            <button id="next" class="mainbtn" style="top:auto; bottom:0.1em">请选择3个</button>
+            <button id="next" class="mainbtn" style="top:auto; bottom:0.1em">请选择5个</button>
         </div>
         `);
 
@@ -242,11 +248,7 @@ class App{
 
         propertyPage
             .find('#start')
-            .click(()=>{
-                if(total() < this.#totalMax) {
-                    this.hint(`你还有${this.#totalMax-total()}属性点没有分配完`);
-                    return;
-                } else if (total() > this.#totalMax) {
+            .click(()=>{if (total() > this.#totalMax) {
                     this.hint(`你多使用了${total() - this.#totalMax}属性点`);
                     return;
                 }
