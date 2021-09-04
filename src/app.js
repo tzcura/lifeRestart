@@ -90,8 +90,8 @@ class App{
                                 li.removeClass('selected')
                                 this.#talentSelected.delete(talent);
                             } else {
-                                if(this.#talentSelected.size==3) {
-                                    this.hint('只能选3个天赋');
+                                if(this.#talentSelected.size==5) {
+                                    this.hint('只能选5个天赋');
                                     return;
                                 }
 
@@ -118,10 +118,10 @@ class App{
         talentPage
             .find('#next')
             .click(()=>{
-                if(this.#talentSelected.size!=3) {
-                    this.hint('请选择3个天赋');
-                    return;
-                }
+               // if(this.#talentSelected.size!=3) {
+              //      this.hint('请选择5个天赋');
+              //      return;
+              //  }
                 this.#totalMax = 10000 + this.#life.getTalentAllocationAddition(Array.from(this.#talentSelected).map(({id})=>id));
                 this.switch('property');
             })
