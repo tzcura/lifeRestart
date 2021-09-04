@@ -66,8 +66,8 @@ class App{
         <div id="main">
             <div class="head" style="font-size: 1.6rem">天赋抽卡</div>
             <ul id="talents" class="selectlist"></ul>
-            <button id="random" class="mainbtn" style="top: 80%;">10连抽！</button>
-            <button id="next" class="mainbtn" style="top:auto; bottom:0.1em">请选择3个</button>
+            <button id="random" class="mainbtn" style="top: 80%;">30连抽！</button>
+            <button id="next" class="mainbtn" style="top:auto; bottom:0.1em">请选择5个</button>
         </div>
         `);
 
@@ -118,7 +118,7 @@ class App{
         talentPage
             .find('#next')
             .click(()=>{
-               // if(this.#talentSelected.size!=3) {
+               // if(this.#talentSelected.size!=5) {
               //      this.hint('请选择5个天赋');
               //      return;
               //  }
