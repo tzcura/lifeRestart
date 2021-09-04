@@ -10,7 +10,7 @@ class App{
     #life;
     #pages;
     #talentSelected = new Set();
-    #totalMax=20;
+    #totalMax=20000;
     #isEnd = false;
     #selectedExtendTalent = null;
     #hintTimeout;
@@ -78,7 +78,7 @@ class App{
         const talentPage = $(`
         <div id="main">
             <div class="head" style="font-size: 1.6rem">天赋抽卡</div>
-            <button id="random" class="mainbtn" style="top: 50%;">10连抽！</button>
+            <button id="random" class="mainbtn" style="top: 80%;">10连抽！</button>
             <ul id="talents" class="selectlist"></ul>
             <button id="next" class="mainbtn" style="top:auto; bottom:0.1em">请选择3个</button>
         </div>
@@ -91,19 +91,22 @@ class App{
         talentPage
             .find('#random')
             .click(()=>{
-                talentPage.find('#random').hide();
+                //talentPage.find('#random').hide();
                 const ul = talentPage.find('#talents');
+                
+                ul.html('');
                 this.#life.talentRandom()
                     .forEach(talent=>{
                         const li = createTalent(talent);
                         ul.append(li);
+                        this.#talentSelected.clear();
                         li.click(()=>{
                             if(li.hasClass('selected')) {
                                 li.removeClass('selected')
                                 this.#talentSelected.delete(talent);
                             } else {
-                                if(this.#talentSelected.size==3) {
-                                    this.hint('只能选3个天赋');
+                                if(this.#talentSelected.size==5) {
+                                    this.hint('只能选5个天赋');
                                     return;
                                 }
 
@@ -130,11 +133,11 @@ class App{
         talentPage
             .find('#next')
             .click(()=>{
-                if(this.#talentSelected.size!=3) {
-                    this.hint('请选择3个天赋');
+                if(this.#talentSelected.size!=5) {
+                    this.hint('请选择5个天赋');
                     return;
                 }
-                this.#totalMax = 20 + this.#life.getTalentAllocationAddition(Array.from(this.#talentSelected).map(({id})=>id));
+                this.#totalMax = 20000 + this.#life.getTalentAllocationAddition(Array.from(this.#talentSelected).map(({id})=>id));
                 this.switch('property');
             })
 
@@ -205,10 +208,10 @@ class App{
             return {group, get, set};
         }
 
-        groups.CHR = getBtnGroups("颜值", 0, 10); // 颜值 charm CHR
-        groups.INT = getBtnGroups("智力", 0, 10); // 智力 intelligence INT
-        groups.STR = getBtnGroups("体质", 0, 10); // 体质 strength STR
-        groups.MNY = getBtnGroups("家境", 0, 10); // 家境 money MNY
+        groups.CHR = getBtnGroups("颜值", 0, 5000); // 颜值 charm CHR
+        groups.INT = getBtnGroups("智力", 0, 5000); // 智力 intelligence INT
+        groups.STR = getBtnGroups("体质", 0, 5000); // 体质 strength STR
+        groups.MNY = getBtnGroups("家境", 0, 5000); // 家境 money MNY
 
         const ul = propertyPage.find('#propertyAllocation');
 
@@ -220,9 +223,9 @@ class App{
             .find('#random')
             .click(()=>{
                 let t = this.#totalMax;
-                const arr = [10, 10, 10, 10];
+                const arr = [20000, 20000, 20000, 20000];
                 while(t>0) {
-                    const sub = Math.round(Math.random() * (Math.min(t, 10) - 1)) + 1;
+                    const sub = Math.round(Math.random() * (Math.min(t, 5000) - 1)) + 1;
                     while(true) {
                         const select = Math.floor(Math.random() * 4) % 4;
                         if(arr[select] - sub <0) continue;
@@ -231,10 +234,10 @@ class App{
                         break;
                     }
                 }
-                groups.CHR.set(10 - arr[0]);
-                groups.INT.set(10 - arr[1]);
-                groups.STR.set(10 - arr[2]);
-                groups.MNY.set(10 - arr[3]);
+                groups.CHR.set(20000 - arr[0]);
+                groups.INT.set(20000 - arr[1]);
+                groups.STR.set(20000 - arr[2]);
+                groups.MNY.set(20000 - arr[3]);
             });
 
         propertyPage
@@ -327,7 +330,7 @@ class App{
                 this.#life.talentExtend(this.#selectedExtendTalent);
                 this.#selectedExtendTalent = null;
                 this.#talentSelected.clear();
-                this.#totalMax = 20;
+                this.#totalMax = 20000;
                 this.#isEnd = false;
                 this.switch('index');
             });
@@ -365,7 +368,7 @@ class App{
                 clear: ()=>{
                     talentPage.find('ul.selectlist').empty();
                     talentPage.find('#random').show();
-                    this.#totalMax = 20;
+                    this.#totalMax = 20000;
                 },
             },
             property: {
